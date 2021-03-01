@@ -36,9 +36,9 @@
 // #define FFT_SAMPLING_LOG
 
 // The following 3 lines are for Digital Microphone support
-#define I2S_WS 15        // aka LRCL
+#define I2S_WS 19        // aka LRCL
 #define I2S_SD 32        // aka DOUT
-#define I2S_SCK 14       // aka BCLK
+#define I2S_SCK 18       // aka BCLK
 const i2s_port_t I2S_PORT = I2S_NUM_0;
 const int BLOCK_SIZE = 64;
 
@@ -48,7 +48,7 @@ TaskHandle_t FFT_Task;
 
 //Use userVar0 and userVar1 (API calls &U0=,&U1=, uint16_t)
 #ifndef MIC_PIN
-  #define MIC_PIN   36  // Changed to direct pin name - ESP32: 36(ADC1_0) Analog port for microphone
+  #define MIC_PIN   32  // Changed to direct pin name - ESP32: 36(ADC1_0) Analog port for microphone
 #endif
 
 #ifndef LED_BUILTIN     // Set LED_BUILTIN if it is not defined by Arduino framework
@@ -162,7 +162,6 @@ void getSample() {
  * A simple averaging multiplier to automatically adjust sound sensitivity.
  */
 void agcAvg() {
-
   multAgc = (sampleAvg < 1) ? targetAgc : targetAgc / sampleAvg;  // Make the multiplier so that sampleAvg * multiplier = setpoint
   int tmpAgc = sample * multAgc;
   if (tmpAgc > 255) tmpAgc = 0;

@@ -69,7 +69,12 @@ if (samples_read > 0) {
     Serial.println("Digital microphone is present.");
     digitalMic = true;
   } else {
-    Serial.println("Digital microphone is NOT present.");
+#ifdef FORCE_DIGITAL_MIC
+      Serial.println("Digital microphone is NOT detected but IS enforced.");
+      digitalMic = true;
+#else
+      Serial.println("Digital microphone is NOT present.");
+#endif
   }
 }
 
